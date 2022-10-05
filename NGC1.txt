@@ -1,0 +1,15 @@
+SELECT tr.trip_id,
+       tr.start_date,
+       tr.subscriber_type,
+       tr.start_station_name,
+       tr.start_station_id,
+       st.station_id,
+       st.name,
+       st.landmark
+FROM `bigquery-public-data.san_francisco.bikeshare_trips` AS tr
+JOIN `bigquery-public-data.san_francisco.bikeshare_stations` AS st
+ON tr.start_station_id = st.station_id
+WHERE tr.subscriber_type LIKE '%Subscriber%' 
+AND st.landmark LIKE '%Redwood City%'
+AND tr.start_date BETWEEN '2016-03-31' AND '2016-07-01' 
+ORDER BY tr.start_date ASC
